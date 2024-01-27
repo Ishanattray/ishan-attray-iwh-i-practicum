@@ -2,22 +2,23 @@ doctype html
 html
   head
     title= title
-    meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='/styles.css')
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="/css/style.css")
   body
-    h1 Custom Object Data
+    h1 Cars
+    a(href="/update-cobj") Add to this table
     if data && data.length > 0
-      table
-        thead
-          tr
-            th Name
-            th Brand Name
-            th Model
-        tbody
-          each obj in data
+        table
+          thead
             tr
-              td= obj.properties.name
-              td= obj.properties.brand_name
-              td= obj.properties.model
+              th Name
+              th Brand Name
+              th Model
+          tbody
+            each car in data
+              tr
+                td.card__name #{car.properties.name}
+                td.card__brand_name #{car.properties.brand_name}
+                td.card__model #{car.properties.model}
     else
       p No custom object data available.
