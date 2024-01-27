@@ -5,15 +5,16 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1")
     link(rel="stylesheet", href="/css/style.css")
   body
-    h1 Update Custom Object Form
-    form(action="/update-cobj", method="POST")
-      label(for="name") Name:
-      input(type="text", name="name", id="name")
-      br
-      label(for="brand_name") Brand Name:
-      input(type="text", name="brand_name", id="brand_name")
-      br
-      label(for="model") Model:
-      input(type="text", name="model", id="model")
-      br
-      button(type="submit") Update Custom Object
+    h1 Create New CRM Record
+    .form-wrapper
+      form(action="/create-cobj", method="POST")
+        label(for="name") Name:
+        input(type="text", name="name", id="name")
+        br
+        label(for="brand_name") Brand Name:
+        input(type="text", name="brand_name", id="brand_name")
+        br
+        label(for="model") Model:
+        input(type="text", name="model", id="model")
+        br
+        button(type="submit") Create CRM Record
