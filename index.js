@@ -13,15 +13,13 @@ const PRIVATE_APP_ACCESS = 'pat-na1-acf984e9-177c-49e0-9e2c-f174c3128bab';
 // ROUTE 1 - app.get route for the homepage to call custom object data
 app.get('/', async (req, res) => {
     try {
-        const customObjectId = '2-22943385';
-        const customObjectEndpoint = `https://api.hubapi.com/crm/v3/objects/custom_object_type/${customObjectId}`;
+        const customObjectEndpoint = 'https://api.hubapi.com/crm/v3/objects/2-22943385?limit=10&properties=name&properties=brand_name&properties=model&archived=false';
         const headers = {
-            Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
-            'Content-Type': 'application/json'
+            Authorization: `Bearer ${PRIVATE_APP_ACCESS}`
         };
 
-        const resp = await axios.get(customObjectEndpoint, { headers });
-        const data = resp.data.results;
+        const response = await axios.get(customObjectEndpoint, { headers });
+        const data = response.data.results;
         res.render('homepage', { title: 'Custom Object | HubSpot APIs', data });
     } catch (error) {
         console.error(error);
@@ -35,24 +33,24 @@ app.get('/update-cobj', (req, res) => {
 });
 
 // ROUTE 3 - app.post route for the route ("/update-cobj") that sends along the data captured by the HTML form
-app.post('/update-cobj', async (req, res) => {
+app.post('/create-cobj', async (req, res) => {
     try {
         const customObjectId = '2-22943385';
-        const update = {
-            properties: {
-                "name": req.body.name,
-                "brand_name": req.body.brand_name,
-                "model": req.body.model
-            }
-        };
-
-        const updateCustomObjectEndpoint = `https://api.hubapi.com/crm/v3/objects/custom_object_type/${customObjectId}`;
+        const createCustomObjectEndpoint = `https://api.hubapi.com/crm/v3/objects/${customObjectId}`;
         const headers = {
             Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
             'Content-Type': 'application/json'
         };
 
-        await axios.post(updateCustomObjectEndpoint, update, { headers });
+        const data = {
+            properties: {
+                name: req.body.name,
+                brand_name: req.body.brand_name,
+                model: req.body.model
+            }
+        };
+
+        const response = await axios.post(createCustomObjectEndpoint, data, { headers });
         res.redirect('/');
     } catch (error) {
         console.error(error);
